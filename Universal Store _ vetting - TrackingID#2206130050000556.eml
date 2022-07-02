@@ -1,0 +1,402 @@
+Delivered-To: iamvfx@gmail.com
+Received: by 2002:a54:27c3:0:0:0:0:0 with SMTP id b3csp1478931ecr;
+        Fri, 1 Jul 2022 13:16:10 -0700 (PDT)
+X-Google-Smtp-Source: AGRyM1sELGv9FyvvkHsdxKXU+JtaAVRDh3nJv1Yzmu4Llp58OH9CAMsfx8X9z83zR5tmah0TSxzh
+X-Received: by 2002:a05:6402:27d1:b0:436:dd8:a6d5 with SMTP id c17-20020a05640227d100b004360dd8a6d5mr21567800ede.342.1656706570891;
+        Fri, 01 Jul 2022 13:16:10 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1656706570; cv=pass;
+        d=google.com; s=arc-20160816;
+        b=IfT8LwEXcDaiiOY/TzYNH11/sFEjSM0zwLAy4t4+gJ4MdjILFza8WKuuTwMfc8ihLh
+         HrFwcE82KLPNVa+bDBDtorOLUN8fJ8gt4XOpxNe3ri4lliOMdAhySo4uFaavmsmXaCmI
+         5u/fwFTZNoGwvfUVoVEsAnjCSLsr3ZzUFt1TE1I9sI4bW0RSdyxw5w1QRX+1TlxkLK/5
+         +MeuwD2MY8NAg/IEF9mMzck6x7J3XhxSDicLRgVNKEBzWt7HKjm85Y7FMu5/yGpImxFw
+         wU/471EXU3vIW02r380IhRPqPeFrepz+qHFvO4UG76vw5PdTndG4CtcKdNk7NiqiXwCs
+         H0UQ==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=content-transfer-encoding:mime-version:to:message-id:subject:date
+         :from:dkim-signature;
+        bh=ROb64Li5/5frv8+7NnJgyXRR7lgwnMPQCtmpYOjLoxg=;
+        b=Rd9PTuGAnR5fAc+Yd20CwGvaCnrMRBsjiRJB2aP5Cv99KBUV5pvYizaCJzdgd3EWVa
+         lleGddXedn8zgYB8h94GIpoMkrU49RbxT7ggJqTKgQws8pGZOneYYR6rPKYdLM+IaPSS
+         XcWh2ojZyoli21LbXFgYC0huu4yicwyHG1vzYNuG7muR3Y6kfsxxIeLryUEgp9O8DQiy
+         1/8qrvDnleOOPj/dGt6TrrtxNjglJ/8eJGcVvQoaTx+5WaRdJFof94CFGToME38WcdhP
+         Do9ZSoCuuzTQY/nuzFZKBQ9mjKbnLgSFse79tsoXJ5Y8ON8rcfEo5/FCJNPiloD9grUh
+         Q8ww==
+ARC-Authentication-Results: i=2; mx.google.com;
+       dkim=pass header.i=@microsoft.onmicrosoft.com header.s=selector2-microsoft-onmicrosoft-com header.b=OkK9rOpx;
+       arc=pass (i=1 spf=pass spfdomain=mail.support.microsoft.com dmarc=pass fromdomain=mail.support.microsoft.com);
+       spf=pass (google.com: domain of supportmail@microsoft.com designates 2a01:111:f403:c110::2 as permitted sender) smtp.mailfrom=supportmail@microsoft.com;
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=microsoft.com
+Return-Path: <supportmail@microsoft.com>
+Received: from na01-obe.outbound.protection.outlook.com (mail-eastus2azlp170110002.outbound.protection.outlook.com. [2a01:111:f403:c110::2])
+        by mx.google.com with ESMTPS id p23-20020a056402501700b00435c797894fsi2284250eda.416.2022.07.01.13.16.10
+        for <iamvfx@gmail.com>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Fri, 01 Jul 2022 13:16:10 -0700 (PDT)
+Received-SPF: pass (google.com: domain of supportmail@microsoft.com designates 2a01:111:f403:c110::2 as permitted sender) client-ip=2a01:111:f403:c110::2;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@microsoft.onmicrosoft.com header.s=selector2-microsoft-onmicrosoft-com header.b=OkK9rOpx;
+       arc=pass (i=1 spf=pass spfdomain=mail.support.microsoft.com dmarc=pass fromdomain=mail.support.microsoft.com);
+       spf=pass (google.com: domain of supportmail@microsoft.com designates 2a01:111:f403:c110::2 as permitted sender) smtp.mailfrom=supportmail@microsoft.com;
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=microsoft.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=hi+r0O+i1tSmrxNLtw5qRwZ3a+rJi4nkujuCQosdb30/2laEk6BzupI24ZFNUTumsSP+QXrUOVigOPqkC0bSaVpOcW74HzPerxrn9Waki7+aUhwgCPYk8u13lMCKZx//Pezl/w3vPDgkWQJZ/ncDoCtx75Qe25pWjGmuYO8I09JAoFtr4teu6ii4SmbjCTDiqVu50M1a9C4oE0sbv8R+LiXNAzdeQfBZ/uFG95sjxeCy1Wpo/ZCVJpKmtMwvY8gHagQOlqvl6ax5/hR0s8uOGbjpB20BUUrxp+x/+stWsKsAHwHsJYKBcdYdaSanVaHDkF60RLyPr7LW8Rkq4AAsoQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ROb64Li5/5frv8+7NnJgyXRR7lgwnMPQCtmpYOjLoxg=;
+ b=YpxNEiQq6LXuJHDa19mpv7vMKKZmoR7X4DUsgnW7/1tQYWI6tb6QcIpWpedGP9UwrDeaJj+DOr99dcgvqboILIio5tNMFA+m4jSOCoY1xwUsuMsRJANqqcpl4nZoZmHwdytIjkP9p3Uq5XApv0DRFGCVWShqjpjCRkCZ9/5/qIeRuWWWheF5YgESFmGgsJQRAUYE2cqduOnj/7vRQ3CKsrmZu/28GE+aEm3PGU2Uk/NZAH/ShbmnCT6kSWY0G0C8hcqnXFjHS1joahMMQBte6x6msGER+bL1uzoEix1aHyZiNEMpyK8PDgv+HS0VZ8NRUJ4RUrjWif9uMAUjiwgj9g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 20.119.65.219) smtp.rcpttodomain=gmail.com
+ smtp.mailfrom=mail.support.microsoft.com; dmarc=pass (p=reject sp=reject
+ pct=100) action=none header.from=mail.support.microsoft.com; dkim=none
+ (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=microsoft.onmicrosoft.com; s=selector2-microsoft-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ROb64Li5/5frv8+7NnJgyXRR7lgwnMPQCtmpYOjLoxg=;
+ b=OkK9rOpx1VKVXcfgPuHCW4GzjD9lI8dNcNeKcB3NtY4qyoFhkjjawinL1bJOch73ZLagOmQ94Gnr3zBWxIaWYKvne2P9+Up0l3UmMTwoAxEodvlp1uE/Km4OKS2iOquCku26ZMSG+qLFetApRb6a148XDWHGZi8pLE53nubQeUQ=
+Received: from DM6PR00CA0053.namprd00.prod.outlook.com (2603:10b6:5:331::22)
+ by CY5PR21MB3687.namprd21.prod.outlook.com (2603:10b6:930:e::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5417.11; Fri, 1 Jul
+ 2022 20:16:08 +0000
+Received: from CD1PEPF000006AE.namprd00.prod.outlook.com
+ (2603:10b6:5:331:cafe::81) by DM6PR00CA0053.outlook.office365.com
+ (2603:10b6:5:331::22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5431.0 via Frontend
+ Transport; Fri, 1 Jul 2022 20:16:08 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 20.119.65.219)
+ smtp.mailfrom=mail.support.microsoft.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=mail.support.microsoft.com;
+Received-SPF: Pass (protection.outlook.com: domain of
+ mail.support.microsoft.com designates 20.119.65.219 as permitted sender)
+ receiver=protection.outlook.com; client-ip=20.119.65.219; helo=[10.0.0.5];
+ pr=C
+Received: from [10.0.0.5] (20.119.65.219) by
+ CD1PEPF000006AE.mail.protection.outlook.com (10.167.254.9) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5419.0 via Frontend Transport; Fri, 1 Jul 2022 20:16:08 +0000
+From: Juan G <support@mail.support.microsoft.com>
+Date: Fri, 01 Jul 2022 20:16:08 +0000
+Subject: Re: Universal Store | vetting  - TrackingID#2206130050000556
+Message-Id: <DOFTQYBU8HU4.QVVOHIBYWPAL1@maileusvm000001>
+To: Constantine Tarasenkov <iamvfx@gmail.com>
+MIME-Version: 1.0
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Return-Path: support@mail.support.microsoft.com
+X-EOPAttributedMessage: 0
+X-MS-Office365-Filtering-Correlation-Id: 984edd79-25fc-4319-445b-08da5b9e88db
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY5PR21MB3687:EE_
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?UnhQVEY5eGZkTUY3NGxRY0VyV2tJTTVQMk1uZUtMOVdkZko3MDVUMm5NeHlJ?=
+ =?utf-8?B?eGRBN09kV2daM1NFamc5TVpFVkptc1c5ODRBa0kxaFVoUXpjbXEvU2JQQ1po?=
+ =?utf-8?B?Rld1TFNwdW1GN1pHVDdEbkZRS2R6YUxsUlp3K29LNUtoTVRTMzE3ZlE4d3RC?=
+ =?utf-8?B?ZklESFZsYTc2MVVzVFhuNkFYQm45MXdKT1NiWlhpd3FyWEZqWlNCYmFxbUJz?=
+ =?utf-8?B?Vkx2VkdtU1pCTXJIWUxVTGVDQnJlQVU4a0pvSUxqSDVWZjRUa0NRUHNLQ3JN?=
+ =?utf-8?B?ajVhSy9ZeTFKRXVyZjBOVm5pODRXSnc5UVdNVE1Edks2UmtlVEtRc0p1WU9E?=
+ =?utf-8?B?Z2FLWnZwU01CTXlXZkszS2RPTXE1Z1NQNVQvNklGWFY1eE9Wak0rcllweW51?=
+ =?utf-8?B?THdvdC84RlZVTDVGUWxzOU9kQzgxb1pIcHNZbG4waUU4QXhLcFRxZXZvZURN?=
+ =?utf-8?B?dmp1OWxPT2VndCtBM2Uza1R6UVlNaU9RWGttNE1QSTRjOWFEK1VCS1ltWE1X?=
+ =?utf-8?B?cFFiQ29lNU53ZVd6bDJHKzRnZjkySktvOEZrQnBqckVubXBmNjFudEFCRjJP?=
+ =?utf-8?B?UW9uUDdFY21TbWRVRmMwdTY1ZGQ1YWN4L3JQb0JMSkxRNUJqNGtaR0dTZHY5?=
+ =?utf-8?B?emFud2cyekwzdjVuMm82bHBFZ2Q5cDJ1bHdrVjh2OEdTTjZlUnBwMUhYRUFW?=
+ =?utf-8?B?dGxKRE14bHNiU01GeDd3QWlBM0RWOWloeGJwYk80Ui91VU1ZWlNtSkE3NTky?=
+ =?utf-8?B?TG5OcHY1WWVJQjhGVW9aSWtBc1V0cGs1dnVRbUQ4Wmc3Rk81VXc5OEU4Um5S?=
+ =?utf-8?B?R1loNXVVMVFsOGM0OWVFSXdDSTBGUytJZnpIeURQOFNjWlUwUTdCUTVwaUFP?=
+ =?utf-8?B?amdWTFNuMHlmOU5sSWNkMEkvTm9JQWtJdzloT0NaSjlTR2c0QXpicHRQTUNN?=
+ =?utf-8?B?Ym1WYkUzL3RwcUpGbFl6WDZQYkF4Uy9uVFFSdm9PTkVRRXByRUdVMldrclR1?=
+ =?utf-8?B?WlJQYjd1YkFhRG5pS2dUYm56eGp5NEVaUFMwdFZSVlRHcUkzWGZDbzlwRWVa?=
+ =?utf-8?B?RjN0QUFBYXhaVm9WTHdqZXVvdXVBb2dCZlRPcTVLb3JocGVpWFg0b2Q0MFBY?=
+ =?utf-8?B?VnlDb0F6YUt6V3VZY0k3Yit5bXB0ajVPeGVYQzBEc3J5aHU3Q1VnRmhpdlg3?=
+ =?utf-8?B?K2Zia1pmTk5GSVVXU04xMStvajFZLzZRbmV3d3RvWVU2UkpuTElGVU10UlpC?=
+ =?utf-8?B?K3VYU3AzR0F5UTkwRnZIQitsWmdlbGZZV2Z2NDdEUTNwTkpBdz09?=
+X-Forefront-Antispam-Report:
+	CIP:20.119.65.219;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:[10.0.0.5];PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230016)(6049001)(7916004)(4636009)(136003)(396003)(39860400002)(376002)(346002)(451199009)(46966006)(40470700004)(36840700001)(316002)(36736006)(16576012)(956004)(82740400003)(9686003)(83380400001)(5660300002)(40480700001)(70206006)(10290500003)(40460700003)(82310400005)(47076005)(186003)(6916009)(70586007)(336012)(81166007)(26005)(166002)(36860700001)(33716001)(8676002)(356005)(478600001)(83170400001)(33656002)(6486002)(82960400001)(8936002)(2906002)(41300700001)(53546011)(82950400001)(36900700001);DIR:OUT;SFP:1102;
+X-OriginatorOrg: mail.support.microsoft.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jul 2022 20:16:08.4284
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 984edd79-25fc-4319-445b-08da5b9e88db
+X-MS-Exchange-CrossTenant-Id: 72f988bf-86f1-41af-91ab-2d7cd011db47
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=72f988bf-86f1-41af-91ab-2d7cd011db47;Ip=[20.119.65.219];Helo=[[10.0.0.5]]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CD1PEPF000006AE.namprd00.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR21MB3687
+
+<div data-wrapper=3D"true" style=3D"font-size: 9pt; font-family: &quot=
+;Segoe UI&quot;, &quot;Helvetica Neue&quot;, sans-serif; direction: lt=
+r;">
+<div style=3D"direction:ltr"><span style=3D"font-size:10pt;"><span sty=
+le=3D"font-family:Calibri,Helvetica,sans-serif;"><span style=3D"color:=
+#1f3864">Dear&nbsp;</span><font>Constantine </font>&nbsp;<br>
+&nbsp;<br>
+<span style=3D"color: rgb(0, 0, 0); font-style: normal; font-variant-l=
+igatures: normal; font-variant-caps: normal; font-weight: 400; letter-=
+spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-=
+transform: none; white-space: pre; widows: 2; word-spacing: 0px; -webk=
+it-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-=
+decoration-thickness: initial; text-decoration-style: initial; text-de=
+coration-color: initial; float: none; display: inline !important;">Con=
+stantine Tarasenkov</span><span style=3D"color:#1f3864"> has been iden=
+tified as subject to governmental sanctions decisions, and we=E2=80=99=
+re obliged by law to refuse and suspend service, consistent with the p=
+olicies outlined in <a href=3D"https://nam06.safelinks.protection.outl=
+ook.com/?url=3Dhttps%3A%2F%2Fblogs.microsoft.com%2Fon-the-issues%2F202=
+2%2F03%2F04%2Fmicrosoft-suspends-russia-sales-ukraine-conflict%2F&amp;=
+data=3D05%7C01%7Cv-juangue%40microsoft.com%7C9426ce3489d942dcf3c908da5=
+512c35f%7C72f988bf86f141af91ab2d7cd011db47%7C1%7C0%7C63791583631928994=
+3%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6=
+Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=3DJHwH5oYGH89ngA6WvF7=
+Q3piamqt9Q9OmBZ2eNWoRWg0%3D&amp;reserved=3D0" style=3D"color:#0563c1; =
+text-decoration:underline">our blog post</a>. If you require any furth=
+er information on this, we recommend you seek external council. </span=
+><br>
+&nbsp;<br>
+<span style=3D"color:#1f3864">Thank you&nbsp;</span></span></span><br>
+&nbsp;
+<div id=3D"signature" style=3D"display: block;"><meta http-equiv=3D"Co=
+ntent-Type" content=3D"text/html; charset=3Dutf-8">
+<div>
+<div style=3D"font-size:9pt; font-family:'Segoe UI','Helvetica Neue',s=
+ans-serif">
+<div><span style=3D"font-size:10pt;"><span style=3D"font-family:Calibr=
+i,Helvetica,sans-serif;">Kindest Regards,<br>
+Juan<br>
+Your Partners at Microsoft</span></span></div>
+
+<div><span style=3D"font-size:10pt;"><span style=3D"font-family:Calibr=
+i,Helvetica,sans-serif;">Office Hours 8AM-5PM</span></span></div>
+
+<div><span style=3D"font-size:10pt;"><span style=3D"font-family:Calibr=
+i,Helvetica,sans-serif;">v-juangue@microsoft.com<br>
+<span><span><a href=3D"https://support.microsoft.com/contactus" style=3D=
+"color:#0563c1; text-decoration:underline">Contact Us</a></span></span=
+></span></span></div>
+</div>
+</div>
+</div>
+<font face=3D"Tahoma, Verdana, Arial" size=3D"2">------------------- O=
+riginal Message -------------------<br>
+<b>From:</b> Constantine Tarasenkov &lt;iamvfx@gmail.com&gt;;<br>
+<b>Received:</b> Thu Jun 23 2022 16:56:53 GMT-0500 (Central Daylight T=
+ime)<br>
+<b>To:</b> Juan Guerrero Salazar &lt;v-juangue@microsoftsupport.com&gt=
+;;<br>
+<b>Subject:</b> Re: Universal Store | vetting - TrackingID#22061300500=
+00556</font><br>
+<br>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dutf-=
+8"> <meta content=3D"text/html; charset=3Dutf-8">
+<div dir=3D"ltr">Thanks again, Juan! No worries, I will wait patiently=
+!<br>
+&nbsp;
+<div dir=3D"ltr">Sent from my iPhone</div>
+
+<div dir=3D"ltr">&nbsp;
+<blockquote type=3D"cite">On 23 Jun 2022, at 22:59, Juan G &lt;v-juang=
+ue@microsoftsupport.com&gt; wrote:<br>
+&nbsp;</blockquote>
+</div>
+
+<blockquote type=3D"cite">
+<div dir=3D"ltr">=EF=BB=BF
+<div style=3D"font-size:9pt; font-family:&quot;Segoe UI&quot;,&quot;He=
+lvetica Neue&quot;,sans-serif; direction:ltr">
+<div style=3D"direction:ltr">
+<div>Hello Constantine,</div>
+
+<div><br>
+Following up, we are still looking into, when I&nbsp;get an update, I&=
+nbsp;will let you know.&nbsp;sorry for the inconvenience</div>
+&nbsp;
+
+<div id=3D"signature" style=3D"display:block">
+<div>
+<div style=3D"font-size:9pt; font-family:'Segoe UI','Helvetica Neue',s=
+ans-serif">
+<div>Kindest Regards,<br>
+Juan<br>
+Your Partners at Microsoft</div>
+
+<div>Office Hours 8AM-5PM</div>
+
+<div>v-juangue@microsoft.com<br>
+<span style=3D"font-size:11pt"><span style=3D"font-family:Calibri,sans=
+-serif"><a href=3D"https://nam02.safelinks.protection.outlook.com/?url=
+=3Dhttps%3A%2F%2Fsupport.microsoft.com%2Fcontactus&amp;data=3D05%7C01%=
+7Cv-juangue%40microsoftsupport.com%7Ce25acf0e01b341afd70208da5563464a%=
+7Cb4c546a47dac46a6a7dded822a11efd3%7C0%7C0%7C637916182131442938%7CUnkn=
+own%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwi=
+LCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=3DTiCRKccOuZVuOizyEtP4tGsuhnl=
+Tr%2FvSa0%2FOxANHH7U%3D&amp;reserved=3D0" originalsrc=3D"https://suppo=
+rt.microsoft.com/contactus" shash=3D"MnaKJ6F0qL5aBozxN1gpZDnWlSSkrOjnn=
+TWWac8hchVGQFETCjiX3WJex/xYvj4cZTrFcoeaDcmlZhL6oltMZ3hnExsjT6DZNQLVDWp=
+JD0W3d1z1DcHf3T3k2KT9hm768q6/S9ihiMHtaF6GkMEH/2xsSEnEqP+fIGQ0mB58fZM=3D=
+" style=3D"color:#0563c1; text-decoration:underline">Contact Us</a></s=
+pan></span></div>
+</div>
+</div>
+</div>
+<font face=3D"Tahoma, Verdana, Arial" size=3D"2">------------------- O=
+riginal Message -------------------<br>
+<b>From:</b> Juan Guerrero Salazar &lt;v-juangue@microsoftsupport.com&=
+gt;;<br>
+<b>Received:</b> Fri Jun 17 2022 12:13:16 GMT-0500 (Central Daylight T=
+ime)<br>
+<b>To:</b> Constantine Tarasenkov &lt;iamvfx@gmail.com&gt;;<br>
+<b>Subject:</b> Re: Universal Store | vetting - TrackingID#22061300500=
+00556</font><br>
+&nbsp;
+<div dir=3D"ltr">
+<div style=3D"font-size:9pt; font-family:&quot;Segoe UI&quot;,&quot;He=
+lvetica Neue&quot;,sans-serif; direction:ltr">
+<div style=3D"direction:ltr">
+<div>Hello Constantine,</div>
+
+<div><br>
+Following up, we are still looking into, when i get a update i will le=
+t you know.&nbsp;</div>
+
+<div>&nbsp;</div>
+
+<div id=3D"signature" style=3D"display:block"><meta content=3D"text/ht=
+ml; charset=3Dutf-8">
+<div>
+<div style=3D"font-size:9pt; font-family:'Segoe UI','Helvetica Neue',s=
+ans-serif">
+<div>Kindest Regards,<br>
+Juan<br>
+Your Partners at Microsoft</div>
+
+<div>Office Hours 8AM-5PM</div>
+
+<div>v-juangue@microsoft.com<br>
+<span style=3D"font-size:11pt"><span style=3D"font-family:Calibri,sans=
+-serif"><a href=3D"https://nam02.safelinks.protection.outlook.com/?url=
+=3Dhttps%3A%2F%2Fsupport.microsoft.com%2Fcontactus&amp;data=3D05%7C01%=
+7Cv-juangue%40microsoftsupport.com%7Ce25acf0e01b341afd70208da5563464a%=
+7Cb4c546a47dac46a6a7dded822a11efd3%7C0%7C0%7C637916182131442938%7CUnkn=
+own%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwi=
+LCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=3DTiCRKccOuZVuOizyEtP4tGsuhnl=
+Tr%2FvSa0%2FOxANHH7U%3D&amp;reserved=3D0" originalsrc=3D"https://suppo=
+rt.microsoft.com/contactus" shash=3D"MnaKJ6F0qL5aBozxN1gpZDnWlSSkrOjnn=
+TWWac8hchVGQFETCjiX3WJex/xYvj4cZTrFcoeaDcmlZhL6oltMZ3hnExsjT6DZNQLVDWp=
+JD0W3d1z1DcHf3T3k2KT9hm768q6/S9ihiMHtaF6GkMEH/2xsSEnEqP+fIGQ0mB58fZM=3D=
+" style=3D"color:#0563c1; text-decoration:underline">Contact Us</a></s=
+pan></span></div>
+</div>
+</div>
+</div>
+<font face=3D"Tahoma, Verdana, Arial" size=3D"2">------------------- O=
+riginal Message -------------------<br>
+<b>From:</b> Constantine Tarasenkov &lt;iamvfx@gmail.com&gt;;<br>
+<b>Received:</b> Tue Jun 14 2022 02:03:03 GMT-0500 (Central Daylight T=
+ime)<br>
+<b>To:</b> Juan Guerrero Salazar &lt;v-juangue@microsoftsupport.com&gt=
+;;<br>
+<b>Subject:</b> Re: Universal Store | vetting - TrackingID#22061300500=
+00556</font><br>
+<br>
+<meta content=3D"text/html; charset=3Dutf-8"> <meta content=3D"text/ht=
+ml; charset=3Dutf-8">
+<div dir=3D"ltr">Ah, I see, I wasn't aware I triggered the vetting pro=
+cess by (I guess?) enrolling into&nbsp;Windows Desktop Applications pr=
+ogram recently. I actually don't need it that much, I program UWP apps=
+ now just fine, but I had one old Win32 program I wanted to share on t=
+he Store, and I thought I had to enroll into the desktop applications =
+program to publish it.<br>
+&nbsp;
+<div dir=3D"ltr">Sent from my iPhone</div>
+
+<div dir=3D"ltr">&nbsp;
+<blockquote type=3D"cite">On 14 Jun 2022, at 03:07, Juan G &lt;v-juang=
+ue@microsoftsupport.com&gt; wrote:<br>
+&nbsp;</blockquote>
+</div>
+
+<blockquote type=3D"cite">
+<div dir=3D"ltr">=EF=BB=BF
+<div style=3D"font-size:9pt; font-family:&quot;Segoe UI&quot;,&quot;He=
+lvetica Neue&quot;,sans-serif; direction:ltr">
+<div><span style=3D"font-size:10pt"><span style=3D"font-family:Calibri=
+,Helvetica,sans-serif">Hello <span style=3D"color:rgb(51,51,51); font-=
+style:normal; font-variant-ligatures:normal; font-variant-caps:normal;=
+ font-weight:400; letter-spacing:normal; orphans:2; text-align:start; =
+text-indent:0px; text-transform:none; white-space:nowrap; widows:2; wo=
+rd-spacing:0px; background-color:rgb(255,255,255); text-decoration-sty=
+le:initial; text-decoration-color:initial; float:none; display:inline!=
+important"> Constantine</span>,</span></span></div>
+
+<div>&nbsp;</div>
+
+<div><span style=3D"font-size:10pt"><span style=3D"font-family:Calibri=
+,Helvetica,sans-serif">I understand that you are having problems with =
+your app update, but the app submission&nbsp;will not be allowed until=
+ the account is vetted. What I can tell you that we are working on you=
+r vetting issues&nbsp;and unfortunately, I don't have an <span style=3D=
+"color:rgb(32,33,36); font-style:normal; font-variant-ligatures:normal=
+; font-variant-caps:normal; font-weight:400; letter-spacing:normal; or=
+phans:2; text-align:left; text-indent:0px; text-transform:none; white-=
+space:normal; widows:2; word-spacing:0px; background-color:rgb(255,255=
+,255); text-decoration-style:initial; text-decoration-color:initial; f=
+loat:none; display:inline!important"> estimated time for this solution=
+.&nbsp;</span></span></span></div>
+
+<div>&nbsp;</div>
+
+<div>&nbsp;</div>
+
+<div style=3D"direction:ltr">
+<div id=3D"oldsignature">
+<div>
+<div style=3D"font-size:9pt; font-family:'Segoe UI','Helvetica Neue',s=
+ans-serif">
+<div><span style=3D"font-size:10pt"><span style=3D"font-family:Calibri=
+,Helvetica,sans-serif">Kindest Regards,<br>
+Juan<br>
+Your Partners at Microsoft</span></span></div>
+
+<div><span style=3D"font-size:10pt"><span style=3D"font-family:Calibri=
+,Helvetica,sans-serif">Office Hours 8AM-5PM</span></span></div>
+
+<div><span style=3D"font-size:10pt"><span style=3D"font-family:Calibri=
+,Helvetica,sans-serif">v-juangue@microsoft.com<br>
+<span><span><a href=3D"https://nam02.safelinks.protection.outlook.com/=
+?url=3Dhttps%3A%2F%2Fsupport.microsoft.com%2Fcontactus&amp;data=3D05%7=
+C01%7Cv-juangue%40microsoftsupport.com%7Ce25acf0e01b341afd70208da55634=
+64a%7Cb4c546a47dac46a6a7dded822a11efd3%7C0%7C0%7C637916182131442938%7C=
+Unknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1h=
+aWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=3DTiCRKccOuZVuOizyEtP4tGs=
+uhnlTr%2FvSa0%2FOxANHH7U%3D&amp;reserved=3D0" originalsrc=3D"https://s=
+upport.microsoft.com/contactus" shash=3D"MnaKJ6F0qL5aBozxN1gpZDnWlSSkr=
+OjnnTWWac8hchVGQFETCjiX3WJex/xYvj4cZTrFcoeaDcmlZhL6oltMZ3hnExsjT6DZNQL=
+VDWpJD0W3d1z1DcHf3T3k2KT9hm768q6/S9ihiMHtaF6GkMEH/2xsSEnEqP+fIGQ0mB58f=
+ZM=3D" style=3D"color:#0563c1; text-decoration:underline">Contact Us</=
+a></span></span></span></span></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</blockquote>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</blockquote>
+</div>
+</div>
+</div>
+
+
